@@ -3,14 +3,24 @@ import "./App.css";
 
 type cardDisplay = "hidden" | "visible" | "disabled";
 
-function App() {
-  const grid = [
-    [1, 6, 0, 1],
-    [4, 0, 2, 7],
-    [5, 3, 6, 4],
-    [5, 2, 7, 3],
-  ];
+const grid_side = 4;
+let random_elements = [];
+const random_element_size = grid_side ** 2;
+for (let i = 0; i < random_element_size / 2; i++) {
+  random_elements.push(i);
+  random_elements.push(i);
+}
 
+random_elements = random_elements.sort(() => Math.random() - 0.5);
+
+const grid = [...Array(grid_side)].map((_) => Array(grid_side).fill(0));
+for (let i = 0; i < grid_side; i++) {
+  for (let j = 0; j < grid_side; j++) {
+    grid[i][j] = random_elements.pop();
+  }
+}
+
+function App() {
   const [displayGrid, setDisplayGrid] = useState(
     [...Array(grid.length)].map((_) => Array(grid.length).fill("hidden"))
   );
